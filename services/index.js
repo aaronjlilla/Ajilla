@@ -61,7 +61,7 @@ spotifyApi.authorizationCodeGrant(code).then(
     spotifyApi.setRefreshToken(data.body['refresh_token']);
   },
   function(err) {
-    if (err) throw err;
+    console.log(err)
   }
 )
 
@@ -73,7 +73,7 @@ app.get('/refreshtoken', function(req, res) {
       spotifyApi.setAccessToken(data.body['access_token']);
     },
     function(err) {
-      if (err) throw err;
+      console.log(err)
     }
   );
 });
