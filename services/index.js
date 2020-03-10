@@ -8,6 +8,8 @@ const cors = require('cors');
 var SpotifyWebApi = require('spotify-web-api-node');
 const axios = require('axios');
 
+const args = process.argv.slice(2)
+
 app.use(cors());
  
 const api = new TwitchApi({
@@ -46,7 +48,7 @@ var credentials = {
 
 var spotifyApi = new SpotifyWebApi(credentials);
 
-var code = 'AQBIHf2O1U8c4npp46fNneXkQkRkrtkSgUP12OHq7dENuSuSHebR3AbwMI3WC3z73NArIe_7BmOey0D8e0fUt_4zU0fLHQrS7k4v9eTJ5xGP6Pttekng6XkofH-DKiimoQeRL77f7MykM7bpQi59kiUXY-6MnfEbb3_Oxiz1xyqZ5tGa_lF1DNoc3-bnkjzy7ratkmmeChkFBeUi_mu4aAir-c5e6zd01FOg07-UVCaBSWibUn2X3KKSCWz60ok4GIREgRTnicSpwgxk_DghZzXoYLvax6BUj1wLxNrFUDUNlIZHelGGJasUn7_n1FqAl-jwVXlI48i_GHckHyj0DAYawngTUDLxDm0UnuekoLXVyb1Ccm0girpHdOjWf4LZD-2M6pLzBIZK3-ZT1qGRw1MQvFmxV-VUa79I2JlKLuYnZFHoPnF0GcDETwBiICOH';
+var code = args[0];
 
 spotifyApi.authorizationCodeGrant(code).then(
   function(data) {
