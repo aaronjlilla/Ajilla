@@ -12,7 +12,7 @@ class App extends Component {
       accesstoken: "",
       artist: "",
       song: "",
-      api: "http://localhost:4000",
+      api: "http://ajilla.gg:4000",
       api2: "http://ajilla.gg:4000"
     }
 
