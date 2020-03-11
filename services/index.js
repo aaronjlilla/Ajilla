@@ -19,6 +19,7 @@ const api = new TwitchApi({
 });
 
 let viewcount = 0;
+let currentsong = {};
  
 api.on("ready", () => {
     setInterval(function() {
@@ -26,14 +27,48 @@ api.on("ready", () => {
         channels: "ajilla"
       }
       api.getStreams(options, (body, response) => {
-        if (body.data && body.data[0]["viewer_count"]) {
-          viewcount = body.data[0]["viewer_count"];
+        if (body.data) {
+          if (body.data[0]) {
+            if (body.data[0]["viewer_count"]) {
+              viewcount = body.data[0]["viewer_count"];
+            }
+          }
         }
         else {
           viewcount = 0;
         }
       });
     }, 15000)
+
+    setInterval(function() {
+      spotifyApi.refreshAccessToken().then(
+        function(data) {
+          let d = new Date();
+          console.log("Refresh token requested and parsed at " + d);
+          spotifyApi.setAccessToken(data.body['access_token']);
+        },
+        function(err) {
+          console.log(err)
+        }
+      );
+    }, 1000000)
+
+    setInterval(function() {
+      axios.get('https://api.spotify.com/v1/me/player/currently-playing', {
+      headers: {
+        Accept: "application/json",
+        Authorization: 'Bearer ' + spotifyApi.getAccessToken()
+      }
+      }).catch(function(error) {
+        console.log(error);
+      }).then((response) => {
+        if (response) {
+          if (response.data["item"]) {
+            currentsong = {artist: response.data["item"]["artists"][0]["name"], song: response.data["item"]["name"]};
+          }
+        }
+      })
+    }, 3000)
 });
 
 app.get('/viewcount', function (req, res) {
@@ -79,16 +114,7 @@ app.get('/refreshtoken', function(req, res) {
 });
 
 app.get('/getcurrentlyplaying', function(req, res) {
-    axios.get('https://api.spotify.com/v1/me/player/currently-playing', {
-    headers: {
-      Accept: "application/json",
-      Authorization: 'Bearer ' + spotifyApi.getAccessToken()
-    }
-    }).then((response) => {
-      if (response.data["item"]) {
-        res.json({artist: response.data["item"]["artists"][0]["name"], song: response.data["item"]["name"]})
-      }
-    })
+  res.json(currentsong);
 });
 
 

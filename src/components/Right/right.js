@@ -22,16 +22,16 @@ class Right extends Component {
 
         this.state = {
             linkbuttons: [
-                {name: "donate", icon: DonateIcon, location: "https://google.com/", helper: "Donate"},
+                {name: "donate", icon: DonateIcon, location: "https://streamelements.com/ajilla/tip", helper: "Donate"},
                 {name: "mail", icon: MailIcon, location: "mailto:aaronjlilla@gmail.com", helper: "E-Mail"},
                 {name: "subscribe", icon: SubscribeIcon, location: "https://www.twitch.tv/subs/ajilla", helper: "Subscribe"},
                 {name: "youtube", icon: YoutubeIcon, location: "#", helper: "Youtube"},
                 {name: "twitter", icon: TwitterIcon, location: "#", helper: "Twitter"},
                 {name: "twitch", icon: TwitchIcon, location: "https://twitch.tv/ajilla", helper: "Twitch"},
-                {name: "discord", icon: DiscordIcon, location: "https://twitch.tv/ajilla", helper: "Discord"}
+                {name: "discord", icon: DiscordIcon, location: "https://discord.gg/shDyXDU", helper: "Discord"}
             ],
             controlbuttons: [
-                {name: "bigscreen", icon: ExpandIcon, helper: "Full Screen"},
+                {name: "fullscreen", icon: ExpandIcon, helper: "Full Screen"},
                 {name: "chat", icon: ChatIcon, helper: "Show Chat"}
             ]
         }

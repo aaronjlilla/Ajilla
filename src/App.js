@@ -11,14 +11,16 @@ class App extends Component {
       screentype: "chat",
       accesstoken: "",
       artist: "",
-      song: ""
+      song: "",
+      api: "http://localhost:4000",
+      api2: "http://ajilla.gg:4000"
     }
 
     this.updateScreenType = this.updateScreenType.bind(this);
   }
 
   componentDidMount() {
-    fetch('http://localhost:4000/getcurrentlyplaying')
+    fetch(this.state.api + '/getcurrentlyplaying')
       .then(response => response.json())
       .then(data => this.setState({
         artist: data.artist,
@@ -26,21 +28,13 @@ class App extends Component {
     }))
 
     setInterval(() => {
-      fetch('http://localhost:4000/getcurrentlyplaying')
+      fetch(this.state.api + '/getcurrentlyplaying')
       .then(response => response.json())
       .then(data => this.setState({
         artist: data.artist,
         song: data.song
       }))
     }, 1000)
-
-    setInterval(() => {
-      fetch('http://localhost:4000/refreshtoken')
-      .then(response => response.json())
-      .then(data => {
-        return data
-      })
-    }, 10000)
   }
 
   updateScreenType(type) {
@@ -53,7 +47,7 @@ class App extends Component {
     return (
         <div className="App">
           <Bigscreen screenType={this.state.screentype}/>
-          <Navigation updateScreenType={this.updateScreenType} currentscreentype={this.state.screentype} artist={this.state.artist} song={this.state.song}/>
+          <Navigation api={this.state.api} updateScreenType={this.updateScreenType} currentscreentype={this.state.screentype} artist={this.state.artist} song={this.state.song}/>
         </div>
     );
   }

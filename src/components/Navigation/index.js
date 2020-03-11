@@ -24,7 +24,7 @@ class Navigation extends Component {
 
     handleViewerUpdate(viewcount) {
         setInterval(() => {
-            fetch("http://localhost:4000/viewcount")
+            fetch(this.props.api + '/viewcount')
             .then(res => res.json())
             .then((result) => {
                 this.setState({
@@ -35,7 +35,7 @@ class Navigation extends Component {
     }
 
     componentDidMount() {
-        fetch("http://localhost:4000/viewcount")
+        fetch(this.props.api + '/viewcount')
         .then(res => res.json())
         .then((result) => {
             this.setState({
@@ -73,12 +73,9 @@ class Navigation extends Component {
                             </div>
                             <div className="infowrap song">
                                 <img src={PlayingIcon} alt="Now Playing Icon" />
-
-                                <div className="current">
-                                    CURRENT SONG:
+                                <div className="songoverflow">
+                                    {this.props.artist} - {this.props.song}
                                 </div>
-
-                                {this.props.artist} - {this.props.song}
                             </div>
                         </div>
 
